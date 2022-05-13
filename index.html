@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noticias FdI</title>
+</head>
+
+<body>
+    <script>
+
+        function makeHttpObject() {
+            if ("XMLHttpRequest" in window) return new XMLHttpRequest();
+            else if ("ActiveXObject" in window) return new ActiveXObject("Msxml2.XMLHTTP");
+        }
+
+        const request = makeHttpObject();
+        request.open("GET", "https://web.fdi.ucm.es/ucm/avisosFdI.aspx", true);
+        request.send(null);
+        request.onreadystatechange = function () {
+            if (request.readyState == 4) {
+                const frame = document.createElement('html')
+                frame.innerHTML = request.responseText
+                const pes = frame.getElementsByTagName('a')
+                const ul = document.createElement('ul')
+                document.body.appendChild(ul)
+                for (const p of pes) {
+                    const li = document.createElement('li')
+                    ul.appendChild(li)
+                    const a = document.createElement('a')
+                    a.innerHTML = p.innerHTML
+                    a.href = p.href
+                    li.appendChild(a)
+                }
+            }
+        };
+
+    </script>
+</body>
+
+</html>
