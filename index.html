@@ -51,6 +51,7 @@
                     const li = document.createElement('li')
                     ul.appendChild(li)
                     const a = document.createElement('a')
+                    a.setAttribute("target", "_parent")
                     a.innerHTML = p.innerHTML
                     a.href = p.href
                     li.appendChild(a)
